@@ -1,0 +1,25 @@
+{
+  "canisters": {
+    "docollab_backend": {
+      "main": "src/docollab_backend/main.mo",
+      "type": "motoko"
+    },
+    "docollab_frontend": {
+      "dependencies": [
+        "docollab_backend"
+      ],
+      "source": [
+        "src/docollab_frontend/assets"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
