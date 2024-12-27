@@ -1,59 +1,98 @@
-# `docollab`
 
-Welcome to your new `docollab` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+```markdown
+# Decentralized Document Collaboration
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+This project implements a decentralized document collaboration platform on the Internet Computer (IC). The platform allows users to create, edit, share documents in real-time, and manage document versions efficiently. It also includes user authentication, access control, and collaboration features.
 
-To learn more before you start working with `docollab`, see the following documentation available online:
+## Features
 
-- [Quick Start](https://internetcomputer.org/docs/current/developer-docs/setup/deploy-locally)
-- [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
-- [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
-- [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
+- **User Management**:
+  - Register users and authenticate them using Principal IDs.
+  - Manage access control for documents (owner, editor, viewer).
 
-If you want to start working on your project right away, you might want to try the following commands:
+- **Document Management**:
+  - Create, save, and update documents.
+  - Track version history for documents.
+
+- **Collaboration**:
+  - Multiple users can edit the same document simultaneously.
+  - Real-time collaboration with queuing and merging of changes.
+  - Notifications for updates made by collaborators.
+
+- **Version Control**:
+  - Document version history is stored.
+  - Each version has a timestamp for reference.
+
+- **Search and Filter**:
+  - Search documents by title or content.
+  - Filter documents by owner or shared status.
+
+- **Efficient Data Storage**:
+  - Store document content and metadata in stable variables.
+  - Use efficient data structures for version history (e.g., linked lists or arrays).
+
+## Prerequisites
+
+- **Internet Computer SDK (DFINITY SDK)**: Follow the instructions in the [DFINITY Quickstart Guide](https://sdk.dfinity.org/docs/quickstart/index.html) to install the SDK.
+- **Motoko programming language**: Used for developing the smart contract on the Internet Computer.
+
+## Getting Started
+
+### 1. Clone the Repository
+
+Clone the project to your local machine:
 
 ```bash
-cd docollab/
-dfx help
-dfx canister --help
+git clone https://github.com/yourusername/Decentralized-Document-Collaboration.git
+cd Decentralized-Document-Collaboration
 ```
 
-## Running the project locally
+### 2. Set Up the Environment
 
-If you want to test your project locally, you can use the following commands:
+Follow the instructions in the [Internet Computer SDK](https://sdk.dfinity.org/docs/quickstart/index.html) to install the SDK and set up your environment.
+
+### 3. Deploy the Canisters
+
+After setting up the environment, you can deploy the smart contract to the Internet Computer using the following command:
 
 ```bash
-# Starts the replica, running in the background
-dfx start --background
-
-# Deploys your canisters to the replica and generates your candid interface
 dfx deploy
 ```
 
-Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
+### 4. Interact with the Application
 
-If you have made changes to your backend canister, you can generate a new candid interface with
+You can interact with the deployed smart contract via the `dfx` command line. For example:
 
-```bash
-npm run generate
-```
-
-at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
-
-If you are making frontend changes, you can start a development server with
+- To create a new document:
 
 ```bash
-npm start
+dfx canister call docollab.createDocument '(Principal.fromText("yourPrincipalID"), "Document Title", "Document Content")'
 ```
 
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
+- To retrieve a document:
 
-### Note on frontend environment variables
+```bash
+dfx canister call docollab.getDocument '(1)'
+```
 
-If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:
+## File Structure
 
-- set`DFX_NETWORK` to `ic` if you are using Webpack
-- use your own preferred method to replace `process.env.DFX_NETWORK` in the autogenerated declarations
-  - Setting `canisters -> {asset_canister_id} -> declarations -> env_override to a string` in `dfx.json` will replace `process.env.DFX_NETWORK` with the string in the autogenerated declarations
-- Write your own `createActor` constructor
+- **main.mo**: The main Motoko source code for the decentralized document collaboration platform.
+- **README.md**: Documentation for the project (this file).
+- **dfx.json**: Configuration file for deploying the canisters on the Internet Computer.
+
+## Contributing
+
+We welcome contributions to improve the project. Feel free to open issues or submit pull requests.
+
+### To contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Commit your changes (`git commit -m 'Add new feature'`).
+4. Push to your fork (`git push origin feature-branch`).
+5. Create a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+```
